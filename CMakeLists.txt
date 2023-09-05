@@ -33,7 +33,13 @@ add_library(imgui
 )
 
 target_include_directories(imgui PUBLIC ${CMAKE_SOURCE_DIR}/libs/imgui ${CMAKE_SOURCE_DIR}/libs/imgui/backends ${CMAKE_SOURCE_DIR}/libs/glfw/include)
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -static -lpthread")
+
+if(UNIX AND NOT APPLE)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
+else()
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -lpthread")
+endif()
+
 add_compile_options(-Wall -Wformat)
 add_executable(imgui-cmake src/main.cpp)
 # Use WIN32 on Windows if you don't want to see terminal window.
