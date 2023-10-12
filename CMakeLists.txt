@@ -4,6 +4,8 @@ project(imgui-cmake)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
   # Set the policy to prefer GLVND only on Linux
+  # You might need these libraries for bulding on linux
+  # libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
   cmake_policy(SET CMP0072 NEW)
 endif()
 
@@ -44,5 +46,4 @@ add_compile_options(-Wall -Wformat)
 add_executable(imgui-cmake src/main.cpp)
 # Use WIN32 on Windows if you don't want to see terminal window.
 
-target_link_libraries( imgui-cmake ${OPENGL_LIBRARIES} glfw )
-target_link_libraries(imgui-cmake imgui)
+target_link_libraries( imgui-cmake ${OPENGL_LIBRARIES} glfw imgui )
